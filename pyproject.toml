@@ -15,6 +15,8 @@ homepage = "https://github.com/fanoway/user_input"
 [project.optional-dependencies]
 [tool]
 [tool.pdm]
+[tool.pdm.scripts]
+tox_test = {cmd = "python -m tox"}
 [tool.pdm.dev-dependencies]
 dev = [
     "black>=21.12b0",
@@ -23,6 +25,7 @@ dev = [
     "pylint>=2.12.2",
     "flake8>=4.0.1",
     "pytest-cov>=3.0.0",
+    "tox-pdm>=0.3.1",
 ]
 
 [tool.black]
@@ -34,21 +37,16 @@ legacy_tox_ini = """
 [tox]
 isolated_build = True
 isolated_build_env = testenv
-envlist = py37,py38,py39,py310
-[tox:.package]
-# note tox will use the same python version as under what tox is installed to package
-# so unless this is python 3 you can require a given python version for the packaging
-# environment via the basepython key
-basepython = python3
+envlist = py38
+
 [testenv]
-whitelist_externals = pdm
 commands =
-    pdm run black app/
-    pdm run flake8 app/ --ignore E501
-    pdm run mypy app/
-    pdm run pylint app/ --exit-zero
-    pdm run pylint app/ -E
-    pdm run pytest --cov-report term-missing  --cov=app tests/
+    black user_input/
+    flake8 user_input/ --ignore E501
+    mypy user_input/
+    pylint user_input/ --exit-zero
+    pylint user_input/ -E
+    pytest --cov-report term-missing  --cov=user_input tests/
 """
 
 [build-system]
