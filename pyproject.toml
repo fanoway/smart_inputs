@@ -10,11 +10,48 @@ requires-python = ">=3.8"
 license = {text = "MIT"}
 
 [project.urls]
-homepage = ""
+homepage = "https://github.com/fanoway/user_input"
 
+[project.optional-dependencies]
 [tool]
 [tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "black>=21.12b0",
+    "tox>=3.24.4",
+    "mypy>=0.930",
+    "pylint>=2.12.2",
+    "flake8>=4.0.1",
+    "pytest-cov>=3.0.0",
+]
+
+[tool.black]
+line-length = 88
+
+[tool.tox]
+# tox.ini
+legacy_tox_ini = """
+[tox]
+isolated_build = True
+isolated_build_env = testenv
+envlist = py37,py38,py39,py310
+[tox:.package]
+# note tox will use the same python version as under what tox is installed to package
+# so unless this is python 3 you can require a given python version for the packaging
+# environment via the basepython key
+basepython = python3
+[testenv]
+whitelist_externals = pdm
+commands =
+    pdm run black app/
+    pdm run flake8 app/ --ignore E501
+    pdm run mypy app/
+    pdm run pylint app/ --exit-zero
+    pdm run pylint app/ -E
+    pdm run pytest --cov-report term-missing  --cov=app tests/
+"""
 
 [build-system]
 requires = ["pdm-pep517"]
 build-backend = "pdm.pep517.api"
+
