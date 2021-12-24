@@ -1,0 +1,20 @@
+[project]
+name = "user_input"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "fanoway", email = "86997883+fanoway@users.noreply.github.com"},
+]
+dependencies = []
+requires-python = ">=3.8"
+license = {text = "MIT"}
+
+[project.urls]
+homepage = ""
+
+[tool]
+[tool.pdm]
+
+[build-system]
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"
