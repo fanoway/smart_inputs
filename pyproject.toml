@@ -1,5 +1,5 @@
 [project]
-name = "user_input"
+name = "smart_inputs"
 version = "0.1.0"
 description = ""
 authors = [
@@ -10,7 +10,7 @@ requires-python = ">=3.8"
 license = {text = "MIT"}
 
 [project.urls]
-homepage = "https://github.com/fanoway/user_input"
+homepage = "https://github.com/fanoway/smart_inputs"
 
 [project.optional-dependencies]
 [tool]
@@ -41,12 +41,12 @@ envlist = py38
 
 [testenv]
 commands =
-    black user_input/
-    flake8 user_input/ --ignore E501
-    mypy user_input/
-    pylint user_input/ --exit-zero
-    pylint user_input/ -E
-    pytest --cov-report term-missing  --cov=user_input tests/
+    black smart_inputs/
+    flake8 smart_inputs/ --ignore E501
+    mypy smart_inputs/
+    pylint smart_inputs/ --exit-zero
+    pylint smart_inputs/ -E
+    pytest --cov-report term-missing  --cov=smart_inputs tests/
 """
 
 [build-system]

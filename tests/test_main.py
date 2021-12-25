@@ -1,9 +1,11 @@
 import pytest  # noqa
-from core import hello_world
+from smart_inputs.smart_inputs import string_input
 
 
-def test_hello_world(capfd):
-    x = hello_world()
-    out, err = capfd.readouterr()
-    assert out == "Hello World\n"
-    assert x is None
+@pytest.mark.parametrize(
+    "prompt, response",
+    [("a", "a"), (42, "42"), ("56/nrte", "56/nrte"), ("Hello World", "Hello World")],
+)
+def test_prompt(capfd, prompt, response):
+    response = string_input(prompt)
+    assert response == prompt
