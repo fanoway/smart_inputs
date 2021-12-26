@@ -1,6 +1,6 @@
 [project]
 name = "smart_inputs"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = [
     {name = "fanoway", email = "86997883+fanoway@users.noreply.github.com"},
