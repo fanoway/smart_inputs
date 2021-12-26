@@ -6,9 +6,10 @@ Smarter methods to get user input in python including regex and type validation.
 
 # Installation
 
-pip install smart_inputs
+	pip install smart_inputs
 
 # Usage
 
-`from smart_inputs import string_input
-string = string_input('What is your name', "[A-z][a-z]+")
+	from smart_inputs import string_input
+
+	string = string_input('What is your name', "[A-z][a-z]+")
