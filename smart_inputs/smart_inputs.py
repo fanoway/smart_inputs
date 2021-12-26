@@ -60,7 +60,9 @@ class SmartLoop:
 
 
 @SmartLoop
-def string_validator(test_string: str = "", regex: Optional[str] = None) -> bool:
+def string_validator(
+    test_string: str = "", regex: Optional[str] = None, allow_empty: bool = False
+) -> bool:
     """Validate string against regex
 
     Parameters
@@ -69,6 +71,8 @@ def string_validator(test_string: str = "", regex: Optional[str] = None) -> bool
         String to Validate.
     regex : Optional[str], optional
         Regex expression to validate.
+    allow_empty : bool, default False
+        If True then a blank value can be returned
 
     Returns
     -------
@@ -76,15 +80,26 @@ def string_validator(test_string: str = "", regex: Optional[str] = None) -> bool
         True if test_string is validated
     """
 
+    # No Regex so everything is valid
+
     if regex is None:
         return True
 
+    # if there is a default value allow empty strings
+
+    if allow_empty and not test_string:
+        return True
+
+    # Check a fullmatch is found
     return re.fullmatch(regex, str(test_string)) is not None
 
 
 @SmartLoop
 def int_validator(
-    test_string: str = "", min_val: int = None, max_val: int = None
+    test_string: str = "",
+    min_val: int = None,
+    max_val: int = None,
+    allow_empty: bool = False,
 ) -> bool:
     """Validate a string input as an integer input against the min and max values
     Parameters
@@ -95,12 +110,19 @@ def int_validator(
         Minimum allowable value.
     max_val : int, optional
         Maximum Allowable Value.
+    allow_empty : bool, default False
+        If True then a blank value can be returned
 
     Returns
     -------
     bool
         True if test_string is validated
     """
+
+    # Default value case
+    if allow_empty and not bool(test_string):
+        return True
+
     try:
         test_val = int(test_string)
     except ValueError:
@@ -117,7 +139,10 @@ def int_validator(
 
 @SmartLoop
 def float_validator(
-    test_string: str = "", min_val: float = None, max_val: float = None
+    test_string: str = "",
+    min_val: float = None,
+    max_val: float = None,
+    allow_empty: bool = False,
 ) -> bool:
     """Validate a string input as a float input against the min and max values
 
@@ -129,12 +154,18 @@ def float_validator(
         Minimum allowable value.
     max_val : float, optional
         Maximum Allowable Value.
+    allow_empty : bool, default False
+        If True then a blank value can be returned
 
     Returns
     -------
     bool
         True if test_string is validated
     """
+
+    # Default value case
+    if allow_empty and not bool(test_string):
+        return True
 
     try:
         test_val = float(test_string)
@@ -170,21 +201,21 @@ def string_input(
         Users validated input.
     """
 
-    # Dispaly default in prmompt if it is passed by user
+    # Display default in prmompt if it is passed by user
     if default is not None:
         prompt = f"{prompt} [{default}] "
 
     string_validator.prompt = prompt
-    response = string_validator(regex=regex)
+    response = string_validator(regex=regex, allow_empty=bool(default))
 
     if response is "" and default is not None:
         response = default
 
+    return response
+
 
 def int_input(
-    prompt: str,
-    min_val: int = None,
-    max_val: int = None,
+    prompt: str, min_val: int = None, max_val: int = None, default: int = None
 ) -> int:
     """Summary
 
@@ -194,17 +225,29 @@ def int_input(
         User Prompt to Display
     min_val : int, optional
         Minimum Value to accept.
-    max_val: int, optional
+    max_val : int, optional
         Maximum Value to accept.
+    default : int, optional
+        Default value if a blank is returned
     """
+
+    # Display default in prmompt if it is passed by user
+    if default is not None:
+        prompt = f"{prompt} [{default}] "
+
     int_validator.prompt = prompt
-    return int(int_validator(min_val=min_val, max_val=max_val))
+    response = int_validator(
+        min_val=min_val, max_val=max_val, allow_empty=bool(default)
+    )
+
+    if not bool(response) and default is not None:
+        response = int(default)
+
+    return int(response)
 
 
 def float_input(
-    prompt: str,
-    min_val: float = None,
-    max_val: float = None,
+    prompt: str, min_val: float = None, max_val: float = None, default: int = None
 ) -> float:
     """Return a float input from the user
 
@@ -216,6 +259,20 @@ def float_input(
         Minimum Value to accept.
     max_val: float, optional
         Maximum Value to accept.
+    default : float, optional
+        Default value if a blank is returned
     """
+
+    # Display default in prmompt if it is passed by user
+    if default is not None:
+        prompt = f"{prompt} [{default}] "
+
     float_validator.prompt = prompt
-    return float(float_validator(min_val=min_val, max_val=max_val))
+    response = float_validator(
+        min_val=min_val, max_val=max_val, allow_empty=bool(default)
+    )
+
+    if not bool(response) and default is not None:
+        response = float(default)
+
+    return float(response)
