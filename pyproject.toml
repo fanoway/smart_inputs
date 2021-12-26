@@ -1,6 +1,6 @@
 [project]
 name = "smart_inputs"
-version = "0.2.1"
+version = "0.3.0"
 description = "Smarter Inputs for easier to read python"
 readme = "README.md"
 authors = [
