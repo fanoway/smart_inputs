@@ -150,7 +150,9 @@ def float_validator(
     return True
 
 
-def string_input(prompt: str, regex: Optional[str] = None) -> str:
+def string_input(
+    prompt: str, regex: Optional[str] = None, default: Optional[str] = None
+) -> str:
     """Test method to check imports are working correctly
 
     Parameters
@@ -158,7 +160,9 @@ def string_input(prompt: str, regex: Optional[str] = None) -> str:
     prompt : str
         User Prompt to display.
     regex : Optional[str], optional
-        Description
+        Regex pattern that input string form user must match
+    default : Optional[str], optional
+        Default value, used if a blank is passed from the user
 
     Returns
     -------
@@ -166,32 +170,52 @@ def string_input(prompt: str, regex: Optional[str] = None) -> str:
         Users validated input.
     """
 
+    # Dispaly default in prmompt if it is passed by user
+    if default is not None:
+        prompt = f"{prompt} [{default}] "
+
     string_validator.prompt = prompt
-    return string_validator(regex=regex)
+    response = string_validator(regex=regex)
+
+    if response is "" and default is not None:
+        response = default
 
 
-def num_input(
+def int_input(
     prompt: str,
-    min_val: Optional[Union[int, float]] = None,
-    max_val: Optional[Union[int, float]] = None,
-    force_int: bool = False,
-) -> Union[int, float]:
+    min_val: int = None,
+    max_val: int = None,
+) -> int:
     """Summary
 
     Parameters
     ----------
     prompt : str
         User Prompt to Display
-    min_val : Optional(Union[int, float]), optional
+    min_val : int, optional
         Minimum Value to accept.
-    max_val: Optional(Union[int, float]), optional
+    max_val: int, optional
         Maximum Value to accept.
-    force_int : bool, optional
-        Force user to input an int
     """
-    if force_int:
-        int_validator.prompt = prompt
-        return int(int_validator(min_val=min_val, max_val=max_val))
-    else:
-        float_validator.prompt = prompt
-        return float(float_validator(min_val=min_val, max_val=max_val))
+    int_validator.prompt = prompt
+    return int(int_validator(min_val=min_val, max_val=max_val))
+
+
+def float_input(
+    prompt: str,
+    min_val: float = None,
+    max_val: float = None,
+) -> float:
+    """Return a float input from the user
+
+    Parameters
+    ----------
+    prompt : str
+        User Prompt to Display
+    min_val : float, optional
+        Minimum Value to accept.
+    max_val: float, optional
+        Maximum Value to accept.
+    """
+    float_validator.prompt = prompt
+    return float(float_validator(min_val=min_val, max_val=max_val))
