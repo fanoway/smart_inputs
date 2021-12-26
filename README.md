@@ -12,4 +12,4 @@ Smarter methods to get user input in python including regex and type validation.
 
 	from smart_inputs import string_input
 
-	string = string_input('What is your name', "[A-z][a-z]+")
+	string = string_input('What is your name? ', regex="[A-z][a-z]+")
