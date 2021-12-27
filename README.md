@@ -1,7 +1,5 @@
 [![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)](https://pdm.fming.dev)
-
 [![PyPI version](https://badge.fury.io/py/smart-inputs.svg)](https://badge.fury.io/py/smart-inputs)
-
 [![Documentation Status](https://readthedocs.org/projects/smart-inputs/badge/?version=latest)](https://smart-inputs.readthedocs.io/en/latest/?badge=latest)
 
 
