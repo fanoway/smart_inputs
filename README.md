@@ -10,7 +10,7 @@ Smarter methods to get user input in python including defaults, regex and type v
 
 # Usage
 
-### String input with regex to reuire a capitalised work
+### String input with regex to r1euire a capitalised word
 
 	from smart_inputs import string_input
 
