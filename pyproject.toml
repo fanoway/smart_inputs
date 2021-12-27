@@ -6,9 +6,7 @@ readme = "README.md"
 authors = [
     {name = "fanoway", email = "86997883+fanoway@users.noreply.github.com"},
 ]
-dependencies = [
-    ,
-]
+dependencies = []
 requires-python = ">=3.8"
 license = {text = "MIT"}
 
