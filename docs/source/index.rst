@@ -16,7 +16,7 @@ Smarter methods to get user input in python including defaults, regex and type v
 
 Installation
 ############
-.. code-block::
+.. code-block:: sh
 
    pip install smart_inputs
 
@@ -25,27 +25,49 @@ Installation
 Usage Examples
 ##############
 
+String input with no extra validation.
+*******************************************
 
-String input with regex to rqeuire a capitalised word
+.. code-block:: python
+   :linenos:
+   
+   from smart_inputs import smart_input
+   
+   val = smart_input("Enter your name: ", cast=str)
+
+
+String input with phone number regex validation.
 ******************************************************
 
 .. code-block:: python
    :linenos:
 
-   from smart_inputs import string_input
+   from smart_inputs import smart_input
 
-   string = string_input('What is your name? ', regex="[A-z][a-z]+")
+   val = smart_input("Enter your phone number: ", cast=str, regex=r"^\d{3}-\d{3}-\d{4}$")
 
 
-Integer input with a minimum value
-**********************************
+Integer input with default value.
+**************************************
 
 .. code-block:: python
    :linenos:
 
-   from smart_inputs import int_input
+   from smart_inputs import smart_input
 
-   integer = int_inpuT('How old are you ? ', min_val = 0)
+   val = smart_input("Enter your age: ", cast=int, default=18)
+
+
+Integer input with a range.
+***************************
+
+.. code-block:: python
+   :linenos:
+
+   from smart_inputs import smart_input
+
+   val = smart_input("Enter your age: ", cast=int, min_val=18, max_val=65)
+
 
 
 Float input with a default value
@@ -54,9 +76,9 @@ Float input with a default value
 .. code-block:: python
    :linenos:
 
-   from smart_inputs import float_input
+   from smart_inputs import smart_input
 
-   float = float_input('Whats your GPA? ', min_val = 0, max_val = 4.0, default = 2.5)
+   val = smart_input("Enter your GPA: ", cast=float, min_val=0.0, max_val=4.0)
 
 
 

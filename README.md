@@ -21,39 +21,39 @@ pip install smart_inputs
 ### String input with no extra validation.
 
 ```py
-from smart_inputs import input
+from smart_inputs import smart_input
 
-val = input("Enter your name: ", cast=str)
+val = smart_input("Enter your name: ", cast=str)
 ```
 
 ### String input with phone number regex validation.
 
 ```py
-from smart_inputs import input
+from smart_inputs import smart_input
 
-val = input("Enter your phone number: ", cast=str, regex=r"^\d{3}-\d{3}-\d{4}$")
+val = smart_input("Enter your phone number: ", cast=str, regex=r"^\d{3}-\d{3}-\d{4}$")
 ```
 
 ### Integer input with default value.
 
 ```py
-from smart_inputs import input
+from smart_inputs import smart_input
 
-val = input("Enter your age: ", cast=int, default=18)
+val = smart_input("Enter your age: ", cast=int, default=18)
 ```
 
 ### Integer input with a range.
 
 ```py
-from smart_inputs import input
+from smart_inputs import smart_input
 
-val = input("Enter your age: ", cast=int, min_val=18, max_val=65)
+val = smart_input("Enter your age: ", cast=int, min_val=18, max_val=65)
 ```
 
 ### Float input with minimum and maximum values.
 
 ```py
-from smart_inputs import input
+from smart_inputs import smart_input
 
-val = input("Enter your GPA: ", cast=float, min_val=0.0, max_val=4.0)
+val = smart_input("Enter your GPA: ", cast=float, min_val=0.0, max_val=4.0)
 ```
