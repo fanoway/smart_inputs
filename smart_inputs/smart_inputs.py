@@ -2,7 +2,7 @@
 """
 
 import re
-from typing import Optional, Any, Callable, Union
+from typing import Optional, Any, Callable
 
 
 class SmartLoop:
