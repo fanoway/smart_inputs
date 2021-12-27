@@ -57,3 +57,5 @@ from smart_inputs import smart_input
 
 val = smart_input("Enter your GPA: ", cast=float, min_val=0.0, max_val=4.0)
 ```
+
+Thank you to [janaSunrise](https://github.com/janaSunrise)
