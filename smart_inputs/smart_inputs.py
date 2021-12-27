@@ -19,7 +19,7 @@ class SmartLoop:
     """
 
     def __init__(self, val_func: Callable, prompt: str = ""):
-        """Summary
+        """Initilaise SmartLoop Class decorator
 
         Parameters
         ----------
