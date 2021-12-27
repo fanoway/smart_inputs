@@ -72,7 +72,7 @@ def string_validator(
     regex : Optional[str], optional
         Regex expression to validate.
     allow_empty : bool, default False
-        If True then a blank value can be returned
+        If True then a blank value can be returned.
 
     Returns
     -------
@@ -102,6 +102,7 @@ def int_validator(
     allow_empty: bool = False,
 ) -> bool:
     """Validate a string input as an integer input against the min and max values
+
     Parameters
     ----------
     test_string : str, optional
@@ -184,16 +185,16 @@ def float_validator(
 def string_input(
     prompt: str, regex: Optional[str] = None, default: Optional[str] = None
 ) -> str:
-    """Test method to check imports are working correctly
+    """Get string value from the user input.
 
     Parameters
     ----------
     prompt : str
         User Prompt to display.
     regex : Optional[str], optional
-        Regex pattern that input string form user must match
+        Regex pattern that input string form user must match.
     default : Optional[str], optional
-        Default value, used if a blank is passed from the user
+        Default value, used if a blank is passed from the user.
 
     Returns
     -------
@@ -217,18 +218,23 @@ def string_input(
 def int_input(
     prompt: str, min_val: int = None, max_val: int = None, default: int = None
 ) -> int:
-    """Summary
+    """Get an interger value from the user
 
     Parameters
     ----------
     prompt : str
-        User Prompt to Display
+        User Prompt to display.
     min_val : int, optional
         Minimum Value to accept.
     max_val : int, optional
         Maximum Value to accept.
     default : int, optional
         Default value if a blank is returned
+
+    Returns
+    -------
+    int
+        Users validated input.
     """
 
     # Display default in prmompt if it is passed by user
@@ -254,13 +260,18 @@ def float_input(
     Parameters
     ----------
     prompt : str
-        User Prompt to Display
+        User Prompt to display.
     min_val : float, optional
         Minimum Value to accept.
     max_val: float, optional
         Maximum Value to accept.
     default : float, optional
-        Default value if a blank is returned
+        Default value if a blank is returned.
+
+    Returns
+    -------
+    float
+        Users validated input.
     """
 
     # Display default in prmompt if it is passed by user
