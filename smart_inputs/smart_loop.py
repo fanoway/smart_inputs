@@ -26,15 +26,12 @@ class SmartLoop:
         prompt : str, optional
             User Prompt to display
         error_message : str, optional
-                Error MEssage to display
+                Error Message to display
 
-        Deleted Parameters
-        ------------------
-        f : Optional[Callable], optional
-            Description
         """
         self.val_func = val_func
         self.prompt = prompt
+        self.error_message = error_message
 
     def __call__(self, **kwargs: Any) -> str:
         """Applies looping logic to input fetching
@@ -53,7 +50,7 @@ class SmartLoop:
         validated = self.val_func(**kwargs)
 
         while not validated:
-            kwargs["user_input"] = input(kwargs.get("error_message", ""))
+            kwargs["user_input"] = input(self.error_message)
             validated = self.val_func(**kwargs)
 
         return kwargs["user_input"]

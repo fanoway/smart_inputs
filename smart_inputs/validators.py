@@ -1,29 +1,28 @@
-from .smart_loop import SmartLoop
 from typing import Any
 import re
+from abc import ABC, abstractmethod
+from .smart_loop import SmartLoop
 
 
-class BaseValidator:
+class BaseValidator(ABC):
     """Base class for validating user inputs"""
 
     def __init__(self) -> None:
         pass
 
-    def validate(self, **kwargs: Any) -> None:
-
-        raise NotImplementedError(
-            "This method should be implemented by the child class."
-        )
+    @staticmethod
+    @abstractmethod
+    @SmartLoop
+    def validate(**kwargs: Any) -> Any:
+        pass
 
 
 class str_Validator(BaseValidator):
     """Validator for String type inputs"""
 
-    def __init__(self) -> None:
-        super().__init__(int)
-
+    @staticmethod
     @SmartLoop
-    def validate(self, **kwargs) -> bool:
+    def validate(**kwargs: Any) -> bool:
         """Validate string against regex
 
         Parameters
@@ -47,7 +46,7 @@ class str_Validator(BaseValidator):
         # Check if the input can be empty.
         if kwargs.get("allow_empty", False):
             # If empty, return True, remove leading white space.
-            if not bool(kwargs["input"].strip()):
+            if not bool(kwargs["user_input"].strip()):
                 return True
 
         if regex is None:
@@ -60,11 +59,9 @@ class str_Validator(BaseValidator):
 class int_Validator(BaseValidator):
     """Validator for Integer type inputs"""
 
-    def __init__(self) -> None:
-        super().__init__(int)
-
+    @staticmethod
     @SmartLoop
-    def validate(self, **kwargs) -> bool:
+    def validate(**kwargs: Any) -> bool:
         """Validate a string input as an integer input against the min and max values
 
         Parameters
@@ -111,11 +108,9 @@ class int_Validator(BaseValidator):
 class float_Validator(BaseValidator):
     """Validator for bool type inputs"""
 
-    def __init__(self) -> None:
-        super().__init__(int)
-
+    @staticmethod
     @SmartLoop
-    def validate(self, **kwargs) -> bool:
+    def validate(**kwargs: Any) -> bool:
         """Validate a string input as a float input against the min and max values
 
         Parameters
@@ -162,12 +157,10 @@ class float_Validator(BaseValidator):
 class bool_Validator(BaseValidator):
     """Validator for boolean type inputs"""
 
-    def __init__(self) -> None:
-        super().__init__(int)
-
+    @staticmethod
     @SmartLoop
-    def validate(self, **kwargs) -> bool:
-        """Validate a string input as a float input against the min and max values
+    def validate(**kwargs: Any) -> bool:
+        """Validate a string input as a bool input against the min and max values
 
         Parameters
         ----------

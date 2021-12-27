@@ -1,7 +1,8 @@
 """smart_inputs methods to collect user inputs in an easier to read way
 """
-from . import validators
 from typing import Any, Type
+
+from . import validators
 
 
 def smart_input(
