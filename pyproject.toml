@@ -22,6 +22,7 @@ homepage = "https://github.com/fanoway/smart_inputs"
 tox_test = {cmd = "python -m tox"}
 docs = {cmd ="docs\\\\make.bat html"}
 publish ={cmd ="twine upload dist/*"}
+
 [tool.pdm.dev-dependencies]
 dev = [
     "black>=21.12b0",
