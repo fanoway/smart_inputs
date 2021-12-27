@@ -16,7 +16,7 @@ pip install smart_inputs
 
 ### String input with no extra validation.
 
-```sh
+```py
 from smart_inputs import input
 
 val = input("Enter your name: ", cast=str)
@@ -24,7 +24,7 @@ val = input("Enter your name: ", cast=str)
 
 ### String input with phone number regex validation.
 
-```sh
+```py
 from smart_inputs import input
 
 val = input("Enter your phone number: ", cast=str, regex=r"^\d{3}-\d{3}-\d{4}$")
@@ -32,7 +32,7 @@ val = input("Enter your phone number: ", cast=str, regex=r"^\d{3}-\d{3}-\d{4}$")
 
 ### Integer input with default value.
 
-```sh
+```py
 from smart_inputs import input
 
 val = input("Enter your age: ", cast=int, default=18)
@@ -40,7 +40,7 @@ val = input("Enter your age: ", cast=int, default=18)
 
 ### Integer input with a range.
 
-```sh
+```py
 from smart_inputs import input
 
 val = input("Enter your age: ", cast=int, min_val=18, max_val=65)
@@ -48,7 +48,7 @@ val = input("Enter your age: ", cast=int, min_val=18, max_val=65)
 
 ### Float input with minimum and maximum values.
 
-```sh
+```py
 from smart_inputs import input
 
 val = input("Enter your GPA: ", cast=float, min_val=0.0, max_val=4.0)
