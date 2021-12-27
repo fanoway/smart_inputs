@@ -35,7 +35,7 @@ def custom_input(
         The keyword arguments to pass to the validator function, and some to the input function.
     """
     # Ensure cast is a valid datatype.
-    if cast is None:
+    if not cast:
         cast = str
 
     # Ensure default and keep looping are not enabled together.
