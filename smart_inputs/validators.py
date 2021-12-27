@@ -1,13 +1,13 @@
 from .smart_loop import SmartLoop
-from Typing import Optional, Any
+from Typing import Any
 import re
 
 
 class BaseValidator:
     """Base class for validating user inputs"""
 
-    def __init__(self, validation_type: Any) -> None:
-        self.validation_type = validation_type
+    def __init__(self) -> None:
+        pass
 
     def validate(self, **kwargs: Any) -> None:
 
@@ -16,134 +16,185 @@ class BaseValidator:
         )
 
 
-class Str_Validator:
-    """ Validator for String type inputs"""
+class str_Validator(BaseValidator):
+    """Validator for String type inputs"""
 
     def __init__(self) -> None:
         super().__init__(int)
 
+    @SmartLoop
     def validate(self, **kwargs) -> bool:
-        
+        """Validate string against regex
+
+        Parameters
+        ----------
+        user_input : str, optional
+            String to Validate.
+        regex : str, optional
+            Regex expression to validate.
+        allow_empty : bool, default False
+            If True then a blank value can be returned.
+
+        Returns
+        -------
+        bool
+            True if user_input is validated
+        """
+
+        # Get regex
+        regex = kwargs.get("regex", None)
+
+        # Check if the input can be empty.
+        if kwargs.get("allow_empty", False):
+            # If empty, return True, remove leading white space.
+            if not bool(kwargs["input"].strip()):
+                return True
+
+        if regex is None:
+            return True
+
+        # Check a fullmatch is found
+        return re.fullmatch(regex, kwargs["user_input"]) is not None
 
 
-@SmartLoop
-def string_validator(
-    test_string: str = "", regex: Optional[str] = None, allow_empty: bool = False
-) -> bool:
-    """Validate string against regex
+class int_Validator(BaseValidator):
+    """Validator for Integer type inputs"""
 
-    Parameters
-    ----------
-    test_string : str, optional
-        String to Validate.
-    regex : Optional[str], optional
-        Regex expression to validate.
-    allow_empty : bool, default False
-        If True then a blank value can be returned.
+    def __init__(self) -> None:
+        super().__init__(int)
 
-    Returns
-    -------
-    bool
-        True if test_string is validated
-    """
+    @SmartLoop
+    def validate(self, **kwargs) -> bool:
+        """Validate a string input as an integer input against the min and max values
 
-    # No Regex so everything is valid
+        Parameters
+        ----------
+        user_input : str, optional
+            String to validate.
+        min_val : int, optional
+            Minimum allowable value.
+        max_val : int, optional
+            Maximum Allowable Value.
+        allow_empty : bool, default False
+            If True then a blank value can be returned
 
-    if regex is None:
+        Returns
+        -------
+        bool
+            True if user_input is validated
+        """
+
+        # Get value range
+        minimum = kwargs.get("minimum", None)
+        maximum = kwargs.get("maximum", None)
+
+        # Check if the input can be empty.
+        if kwargs.get("allow_empty", False):
+            # If empty, return True, remove leading white space.
+            if not bool(kwargs["user_input"].strip()):
+                return True
+
+        try:
+            test_val = int(kwargs["user_input"])
+        except ValueError:
+            return False
+
+        if (minimum is not None) and (test_val < minimum):
+            return False
+
+        if (maximum is not None) and (test_val > maximum):
+            return False
+
         return True
 
-    # if there is a default value allow empty strings
 
-    if allow_empty and not test_string:
+class float_Validator(BaseValidator):
+    """Validator for bool type inputs"""
+
+    def __init__(self) -> None:
+        super().__init__(int)
+
+    @SmartLoop
+    def validate(self, **kwargs) -> bool:
+        """Validate a string input as a float input against the min and max values
+
+        Parameters
+        ----------
+        user_input : str, optional
+            String to validate.
+        min_val : float, optional
+            Minimum allowable value.
+        max_val : float, optional
+            Maximum Allowable Value.
+        allow_empty : bool, default False
+            If True then a blank value can be returned
+
+        Returns
+        -------
+        bool
+            True if user_input is validated
+        """
+
+        # Get value range
+        minimum = kwargs.get("minimum", None)
+        maximum = kwargs.get("maximum", None)
+
+        # Check if the input can be empty.
+        if kwargs.get("allow_empty", False):
+            # If empty, return True, remove leading white space.
+            if not bool(kwargs["user_input"].strip()):
+                return True
+
+        try:
+            test_val = float(kwargs["user_input"])
+        except ValueError:
+            return False
+
+        if (minimum is not None) and (test_val < minimum):
+            return False
+
+        if (maximum is not None) and (test_val > maximum):
+            return False
+
         return True
 
-    # Check a fullmatch is found
-    return re.fullmatch(regex, str(test_string)) is not None
 
+class bool_Validator(BaseValidator):
+    """Validator for boolean type inputs"""
 
-@SmartLoop
-def int_validator(
-    test_string: str = "",
-    min_val: int = None,
-    max_val: int = None,
-    allow_empty: bool = False,
-) -> bool:
-    """Validate a string input as an integer input against the min and max values
+    def __init__(self) -> None:
+        super().__init__(int)
 
-    Parameters
-    ----------
-    test_string : str, optional
-        String to validate.
-    min_val : int, optional
-        Minimum allowable value.
-    max_val : int, optional
-        Maximum Allowable Value.
-    allow_empty : bool, default False
-        If True then a blank value can be returned
+    @SmartLoop
+    def validate(self, **kwargs) -> bool:
+        """Validate a string input as a float input against the min and max values
 
-    Returns
-    -------
-    bool
-        True if test_string is validated
-    """
+        Parameters
+        ----------
+        user_input : str, optional
+            String to validate.
+        min_val : float, optional
+            Minimum allowable value.
+        max_val : float, optional
+            Maximum Allowable Value.
+        allow_empty : bool, default False
+            If True then a blank value can be returned
 
-    # Default value case
-    if allow_empty and not bool(test_string):
+        Returns
+        -------
+        bool
+            True if user_input is validated
+        """
+
+        # Check if the input can be empty.
+        if kwargs.get("allow_empty", False):
+            # If empty, return True, remove leading white space.
+            if not bool(kwargs["user_input"].strip()):
+                return True
+
+        try:
+            bool(kwargs["user_input"])
+        except ValueError:
+            return False
+
         return True
-
-    try:
-        test_val = int(test_string)
-    except ValueError:
-        return False
-
-    if (min_val is not None) and (test_val < min_val):
-        return False
-
-    if (max_val is not None) and (test_val > max_val):
-        return False
-
-    return True
-
-
-@SmartLoop
-def float_validator(
-    test_string: str = "",
-    min_val: float = None,
-    max_val: float = None,
-    allow_empty: bool = False,
-) -> bool:
-    """Validate a string input as a float input against the min and max values
-
-    Parameters
-    ----------
-    test_string : str, optional
-        String to validate.
-    min_val : float, optional
-        Minimum allowable value.
-    max_val : float, optional
-        Maximum Allowable Value.
-    allow_empty : bool, default False
-        If True then a blank value can be returned
-
-    Returns
-    -------
-    bool
-        True if test_string is validated
-    """
-
-    # Default value case
-    if allow_empty and not bool(test_string):
-        return True
-
-    try:
-        test_val = float(test_string)
-    except ValueError:
-        return False
-
-    if (min_val is not None) and (test_val < min_val):
-        return False
-
-    if (max_val is not None) and (test_val > max_val):
-        return False
-
-    return True

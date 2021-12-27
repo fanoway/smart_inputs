@@ -9,20 +9,24 @@ class SmartLoop:
     ----------
     prompt : str
         User prompt to dispaly when collecting input
+    error_message: str
+        Error message to display whenn an input is invalid
     val_func : Callable
         Validation method to be looped, Passed by decorator
 
     """
 
-    def __init__(self, val_func: Callable, prompt: str = ""):
+    def __init__(self, val_func: Callable, prompt: str = "", error_message: str = ""):
         """Initilaise SmartLoop Class decorator
 
         Parameters
         ----------
         val_func : Callable
-            Description
+            Validation Function to loop
         prompt : str, optional
-            Description
+            User Prompt to display
+        error_message : str, optional
+                Error MEssage to display
 
         Deleted Parameters
         ------------------
@@ -45,11 +49,11 @@ class SmartLoop:
         str
             Validated User input
         """
-        kwargs["test_string"] = input(self.prompt)
+        kwargs["user_input"] = input(self.prompt)
         validated = self.val_func(**kwargs)
 
         while not validated:
-            kwargs["test_string"] = input("Invalid input, retry: ")
+            kwargs["user_input"] = input(kwargs.get("error_message", ""))
             validated = self.val_func(**kwargs)
 
-        return kwargs["test_string"]
+        return kwargs["user_input"]
