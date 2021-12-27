@@ -209,7 +209,7 @@ def string_input(
     string_validator.prompt = prompt
     response = string_validator(regex=regex, allow_empty=bool(default))
 
-    if response is "" and default is not None:
+    if not bool(response) and default is not None:
         response = default
 
     return response
