@@ -1,32 +1,55 @@
+# Smart Inputs
+
 [![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)](https://pdm.fming.dev)
 [![PyPI version](https://badge.fury.io/py/smart-inputs.svg)](https://badge.fury.io/py/smart-inputs)
 [![Documentation Status](https://readthedocs.org/projects/smart-inputs/badge/?version=latest)](https://smart-inputs.readthedocs.io/en/latest/?badge=latest)
 
-
-
-# smart_inputs
 Smarter methods to get user input in python including defaults, regex and type validation. Requests for rentry are handled automatically if the validation fails
 
 # Installation
 
-	pip install smart_inputs
+```sh
+pip install smart_inputs
+```
 
-# Usage
+## Usage
 
-### String input with regex to r1euire a capitalised word
+### String input with no extra validation.
 
-	from smart_inputs import string_input
+```sh
+from smart_inputs import input
 
-	string = string_input('What is your name? ', regex="[A-z][a-z]+")
+val = input("Enter your name: ", cast=str)
+```
 
-### Integer input with a minimum value
+### String input with phone number regex validation.
 
-	from smart_inputs import int_input
+```sh
+from smart_inputs import input
 
-	integer = int_inpuT('How old are you ? ', min_val = 0)
+val = input("Enter your phone number: ", cast=str, regex=r"^\d{3}-\d{3}-\d{4}$")
+```
 
-### Float input with a default value
+### Integer input with default value.
 
-	from smart_inputs import float_input
+```sh
+from smart_inputs import input
 
-	float = float_input('Whats your GPA? ', min_val = 0, max_val = 4.0, default = 2.5)
+val = input("Enter your age: ", cast=int, default=18)
+```
+
+### Integer input with a range.
+
+```sh
+from smart_inputs import input
+
+val = input("Enter your age: ", cast=int, min_val=18, max_val=65)
+```
+
+### Float input with minimum and maximum values.
+
+```sh
+from smart_inputs import input
+
+val = input("Enter your GPA: ", cast=float, min_val=0.0, max_val=4.0)
+```
