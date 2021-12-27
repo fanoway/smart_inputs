@@ -207,7 +207,7 @@ def string_input(
         prompt = f"{prompt} [{default}] "
 
     string_validator.prompt = prompt
-    response = string_validator(regex=regex, allow_empty=bool(default))
+    response: str = string_validator(regex=regex, allow_empty=bool(default))
 
     if not bool(response) and default is not None:
         response = default
@@ -242,12 +242,12 @@ def int_input(
         prompt = f"{prompt} [{default}] "
 
     int_validator.prompt = prompt
-    response = int_validator(
+    response: str = int_validator(
         min_val=min_val, max_val=max_val, allow_empty=bool(default)
     )
 
     if not bool(response) and default is not None:
-        response = int(default)
+        response = str(default)
 
     return int(response)
 
@@ -279,11 +279,11 @@ def float_input(
         prompt = f"{prompt} [{default}] "
 
     float_validator.prompt = prompt
-    response = float_validator(
+    response: str = float_validator(
         min_val=min_val, max_val=max_val, allow_empty=bool(default)
     )
 
     if not bool(response) and default is not None:
-        response = float(default)
+        response = str(default)
 
     return float(response)
