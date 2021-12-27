@@ -7,7 +7,7 @@ authors = [
     {name = "fanoway", email = "86997883+fanoway@users.noreply.github.com"},
 ]
 dependencies = [
-    "sphinx-rtd-theme>=1.0.0",
+    ,
 ]
 requires-python = ">=3.8"
 license = {text = "MIT"}
@@ -32,6 +32,7 @@ dev = [
     "pytest-cov>=3.0.0",
     "tox-pdm>=0.3.1",
     "sphinx>=4.3.2",
+    "sphinx-rtd-theme>=1.0.0"
 ]
 
 [tool.black]
