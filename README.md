@@ -1,5 +1,8 @@
 [![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)](https://pdm.fming.dev)
 [![PyPI version](https://badge.fury.io/py/smart-inputs.svg)](https://badge.fury.io/py/smart-inputs)
+[![Documentation Status](https://readthedocs.org/projects/smart-inputs/badge/?version=latest)](https://smart-inputs.readthedocs.io/en/latest/?badge=latest)
+
+
 
 # smart_inputs
 Smarter methods to get user input in python including defaults, regex and type validation. Requests for rentry are handled automatically if the validation fails
